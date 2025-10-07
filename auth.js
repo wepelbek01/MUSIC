@@ -27,17 +27,20 @@ onAuthStateChanged(auth, async (user) => {
   }
 })
 
+// Google Sign In
 googleSignInBtn.addEventListener("click", async () => {
   loading.classList.remove("hidden")
   googleSignInBtn.disabled = true
 
+  const provider = new GoogleAuthProvider()
+
   try {
-    const provider = new GoogleAuthProvider()
     const result = await signInWithPopup(auth, provider)
+    console.log("[v0] User signed in:", result.user.email)
     // onAuthStateChanged will handle the redirect
   } catch (error) {
-    console.error("Google sign in error:", error)
-    alert("Google orqali kirishda xatolik: " + error.message)
+    console.error("[v0] Sign in error:", error)
+    alert("Kirish xatosi: " + error.message)
     loading.classList.add("hidden")
     googleSignInBtn.disabled = false
   }
